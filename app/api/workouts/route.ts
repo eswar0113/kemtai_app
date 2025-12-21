@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { db } from "@/db/client";
+import { getDb } from "@/db/client";
 import { workouts } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 
 const defaultUser = "demo-user";
 
 export async function GET() {
+  const db = await getDb();
   const rows = await db
     .select()
     .from(workouts)
@@ -27,6 +28,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const db = await getDb();
   const body = await req.json();
   const payload = {
     userId: defaultUser,
