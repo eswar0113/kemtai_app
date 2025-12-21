@@ -5,11 +5,8 @@ const config: Config = {
   out: "./drizzle",
   dialect: "sqlite",
   dbCredentials: {
-    url: "./data.db"
+    url: process.env.DATABASE_URL || "/var/data/data.db"
   }
 };
 
 export default config;
-
-
-
