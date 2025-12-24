@@ -3,28 +3,83 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  background-color: #0b1021;
-  color: #e5e7eb;
+  --background: 255 255 255;
+  --foreground: 29 29 31;
 }
 
 body {
-  min-height: 100vh;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15), transparent 25%),
-    radial-gradient(circle at 90% 10%, rgba(14, 165, 233, 0.15), transparent 20%),
-    #0b1021;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  background-color: #ffffff;
+  color: #1d1d1f;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Elegant Apple-style Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  /* Slightly wider for better usability but still sleek */
 }
 
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+  /* Padding effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Apple Glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.glass-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
 
+.apple-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 18px;
+  /* Classic Apple curvature */
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.apple-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #0066CC 0%, #2997ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Utilities */
+.hero-text {
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+.sub-hero-text {
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}

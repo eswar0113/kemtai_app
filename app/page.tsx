@@ -12,55 +12,75 @@ export default function Home() {
   ];
 
   return (
-    <main className="space-y-8">
-      <section className="glass rounded-3xl p-8 shadow-xl">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-primary font-semibold">
-              AI Coach
-            </p>
-            <h1 className="text-4xl font-bold text-white">Kemtai-style Fitness Trainer</h1>
-            <p className="text-gray-300 mt-2">
-              Real-time pose tracking, rep counting, and voice feedback. Choose an exercise
-              to get started.
-            </p>
+    <main className="min-h-screen bg-white text-gray-900 pb-20">
+      {/* Navbar Placeholder */}
+      <nav className="fixed top-0 w-full z-50 glass border-b border-gray-100/50">
+        <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
+          <div className="text-sm font-semibold tracking-tight">KEMTAI</div>
+          <div className="flex gap-4 text-xs font-medium text-gray-500">
+            <Link href="/dashboard" className="hover:text-black transition-colors">Studio</Link>
+            <Link href="#features" className="hover:text-black transition-colors">Features</Link>
           </div>
-          <div className="flex items-center gap-3">
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-40 pb-20 px-6 text-center">
+        <div className="max-w-3xl mx-auto space-y-6 animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-gray-900 hero-text">
+            Fitness. <br />
+            <span className="text-gradient-blue">Reimagined.</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-500 font-normal leading-relaxed max-w-xl mx-auto sub-hero-text">
+            Real-time AI form correction. <br className="hidden md:block" />
+            Precision training right from your living room.
+          </p>
+
+          <div className="pt-8 flex items-center justify-center gap-4">
             <Link
-              className="px-4 py-2 rounded-full bg-primary text-white font-semibold shadow-lg"
               href="/dashboard"
+              className="px-8 py-3 bg-blue-600 text-white rounded-full text-base font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              Dashboard
+              Start Training
             </Link>
-            <a
-              className="px-4 py-2 rounded-full border border-slate-600 text-gray-200"
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href="#learn-more"
+              className="px-8 py-3 text-blue-600 rounded-full text-base font-medium hover:bg-blue-50 transition-colors"
             >
-              Docs
-            </a>
+              Learn more
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-3">
-        <WorkoutStatsCard title="Accuracy Engine" value="Angle scoring" subtitle="Hip/Knee/Elbow" />
-        <WorkoutStatsCard title="Voice Feedback" value="Web Speech" subtitle="10-15 FPS loop" />
-        <WorkoutStatsCard title="Session History" value="SQLite + Drizzle" subtitle="Persisted locally" />
+      {/* Stats Grid */}
+      <section className="max-w-5xl mx-auto px-6 py-12">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="apple-card p-8 text-center space-y-2">
+            <div className="text-3xl font-semibold text-gray-900">99%</div>
+            <div className="text-sm text-gray-500 font-medium">Precision Analysis</div>
+          </div>
+          <div className="apple-card p-8 text-center space-y-2">
+            <div className="text-3xl font-semibold text-gray-900">&lt;0.1s</div>
+            <div className="text-sm text-gray-500 font-medium">Latency</div>
+          </div>
+          <div className="apple-card p-8 text-center space-y-2">
+            <div className="text-3xl font-semibold text-gray-900">100%</div>
+            <div className="text-sm text-gray-500 font-medium">Private & Local</div>
+          </div>
+        </div>
       </section>
 
-      <section className="glass rounded-3xl p-6 shadow-xl">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold text-white">Choose your exercise</h2>
-          <Link href="/dashboard" className="text-sm text-secondary">
-            View history
-          </Link>
+      {/* Exercise Selection */}
+      <section className="max-w-5xl mx-auto px-6 py-20 space-y-12">
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl font-semibold tracking-tight text-gray-900">Select Your Routine.</h2>
+          <p className="text-gray-500 text-lg">Choose from a variety of exercises tailored to your needs.</p>
         </div>
+
+        {/* We need to update ExerciseSelector to match the theme too, passing props or relying on global styles */}
         <ExerciseSelector exercises={exercises} />
       </section>
     </main>
   );
 }
-
-

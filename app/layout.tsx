@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Kemtai AI Fitness",
@@ -13,8 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen text-gray-100 bg-slate-950">
-        <div className="max-w-6xl mx-auto px-4 py-6">{children}</div>
+      <body className={`${inter.variable} font-sans min-h-screen antialiased text-gray-900 bg-white selection:bg-blue-500/30 selection:text-blue-900`}>
+        <div className="mx-auto">{children}</div>
       </body>
     </html>
   );

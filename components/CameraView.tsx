@@ -41,7 +41,7 @@ export default function CameraView({ exercise, onResult }: Props) {
   const cameraInitialized = useRef<string | null>(null);
   const onResultRef = useRef(onResult);
   const streamRef = useRef<MediaStream | null>(null);
-  
+
   // Keep onResult ref updated without triggering re-renders
   useEffect(() => {
     onResultRef.current = onResult;
@@ -52,7 +52,7 @@ export default function CameraView({ exercise, onResult }: Props) {
     if (cameraInitialized.current === exercise) {
       return;
     }
-    
+
     let raf: number;
     let active = true;
 
@@ -65,59 +65,59 @@ export default function CameraView({ exercise, onResult }: Props) {
 
         setLoading(true);
         setError(null);
-        
+
         // Request camera access
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { 
-            width: 640, 
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: 640,
             height: 480,
             facingMode: "user" // Front-facing camera
-          } 
+          }
         });
-        
+
         // Store stream in ref for cleanup
         streamRef.current = stream;
-        
+
         if (!videoRef.current || !active) {
           stream.getTracks().forEach(track => track.stop());
           streamRef.current = null;
           return;
         }
-        
+
         // Mark as initialized before setting stream (prevents re-initialization)
         cameraInitialized.current = exercise;
-        
+
         // Set srcObject and wait for video to be ready
         videoRef.current.srcObject = stream;
-        
+
         // Wait for video metadata to load
         await new Promise<void>((resolve, reject) => {
           if (!videoRef.current) {
             reject(new Error("Video element not available"));
             return;
           }
-          
+
           const video = videoRef.current;
-          
+
           const handleLoadedMetadata = () => {
             video.removeEventListener("loadedmetadata", handleLoadedMetadata);
             resolve();
           };
-          
+
           const handleError = () => {
             video.removeEventListener("error", handleError);
             reject(new Error("Video load error"));
           };
-          
+
           video.addEventListener("loadedmetadata", handleLoadedMetadata);
           video.addEventListener("error", handleError);
-          
+
           // If already loaded, resolve immediately
           if (video.readyState >= 1) {
             resolve();
           }
         });
-        
+
         // Play video with error handling
         try {
           await videoRef.current.play();
@@ -125,12 +125,12 @@ export default function CameraView({ exercise, onResult }: Props) {
           // Ignore play() interruption errors - video will play when ready
           console.warn("Video play() interrupted:", playError);
         }
-        
+
         // Load detector after video is ready
         await loadDetector();
-        
+
         if (!active) return;
-        
+
         const loop = async () => {
           if (!active || !videoRef.current) return;
           try {
@@ -150,7 +150,7 @@ export default function CameraView({ exercise, onResult }: Props) {
       } catch (error: any) {
         console.error("Camera initialization error:", error);
         setLoading(false);
-        
+
         // Provide user-friendly error messages
         if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
           setError("Camera access was denied. Please allow camera access and refresh the page.");
@@ -194,19 +194,19 @@ export default function CameraView({ exercise, onResult }: Props) {
 
     // Store the function in ref so it can be called from button
     startCameraRef.current = startCamera;
-    
+
     startCamera();
-    
+
     return () => {
       active = false;
       if (raf) cancelAnimationFrame(raf);
-      
+
       // Stop stream if it exists
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
         streamRef.current = null;
       }
-      
+
       if (videoRef.current) {
         const video = videoRef.current;
         // Pause video first
@@ -219,29 +219,28 @@ export default function CameraView({ exercise, onResult }: Props) {
         // Clear srcObject
         video.srcObject = null;
       }
-      
+
       // Reset initialization flag when cleanup runs
       cameraInitialized.current = null;
     };
   }, [exercise, logic]); // Removed onResult from dependencies
 
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl border border-slate-800 bg-black">
+    <div className="relative w-full overflow-hidden rounded-3xl bg-black shadow-2xl apple-card border-none">
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-10">
-          <div className="text-center text-white">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-            <p>Requesting camera access...</p>
-            <p className="text-sm text-gray-400 mt-2">Please allow camera access when prompted</p>
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-50/10 backdrop-blur-md">
+          <div className="text-center">
+            <div className="animate-spin h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-lg font-medium text-white mb-1">Accessing Camera</p>
+            <p className="text-sm text-gray-300">Please allow permission...</p>
           </div>
         </div>
       )}
       {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-10">
-          <div className="text-center text-white p-6 max-w-md">
-            <div className="text-red-400 text-4xl mb-4">⚠️</div>
-            <p className="text-lg font-semibold mb-2">Camera Error</p>
-            <p className="text-sm text-gray-300 mb-4">{error}</p>
+        <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/80 backdrop-blur-sm p-6">
+          <div className="text-center max-w-md bg-white p-8 rounded-2xl shadow-xl">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Camera Error</h3>
+            <p className="text-gray-500 mb-6">{error}</p>
             <button
               onClick={() => {
                 setError(null);
@@ -250,7 +249,7 @@ export default function CameraView({ exercise, onResult }: Props) {
                   startCameraRef.current();
                 }
               }}
-              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition"
+              className="px-6 py-2.5 bg-blue-600 text-white rounded-full text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm"
             >
               Try Again
             </button>
