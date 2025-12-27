@@ -6,7 +6,10 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Kemtai AI Fitness",
-  description: "Real-time AI fitness trainer with pose detection and feedback"
+  description: "Real-time AI fitness trainer with pose detection and feedback",
+  icons: {
+    icon: "/favicon.svg"
+  }
 };
 
 export default function RootLayout({

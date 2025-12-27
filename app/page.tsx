@@ -31,7 +31,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-20 pb-20 px-6 text-center">
         {/* Hero Banner */}
-        <div className="max-w-5xl mx-auto mb-8">
+        <div className="max-w-6xl mx-auto mb-10 rounded-3xl overflow-hidden shadow-2xl border border-blue-100/50">
           <HeroBanner />
         </div>
         <div className="max-w-3xl mx-auto space-y-6 animate-fade-in">
