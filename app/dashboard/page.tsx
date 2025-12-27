@@ -13,7 +13,7 @@ import {
   Legend
 } from "chart.js";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
@@ -110,11 +110,11 @@ export default function Dashboard() {
                 scales: {
                   x: {
                     ticks: { color: "#86868b" },
-                    grid: { color: "rgba(0,0,0,0.05)", drawBorder: false }
+                    grid: { color: "rgba(0,0,0,0.05)" }
                   },
                   y: {
                     ticks: { color: "#86868b" },
-                    grid: { color: "rgba(0,0,0,0.05)", drawBorder: false }
+                    grid: { color: "rgba(0,0,0,0.05)" }
                   },
                   y1: {
                     position: "right",
