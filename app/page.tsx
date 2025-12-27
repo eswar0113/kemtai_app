@@ -1,5 +1,7 @@
 import Link from "next/link";
 import ExerciseSelector from "@/components/ExerciseSelector";
+import { Logo } from "@/components/Logo";
+import { HeroBanner } from "@/components/HeroBanner";
 
 export default function Home() {
   const exercises = [
@@ -15,7 +17,10 @@ export default function Home() {
       {/* Navbar Placeholder */}
       <nav className="fixed top-0 w-full z-50 glass border-b border-gray-100/50">
         <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
-          <div className="text-sm font-semibold tracking-tight">KEMTAI</div>
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Logo className="w-8 h-8" />
+            <span className="text-sm font-semibold tracking-tight">KEMTAI</span>
+          </Link>
           <div className="flex gap-4 text-xs font-medium text-gray-500">
             <Link href="/dashboard" className="hover:text-black transition-colors">Studio</Link>
             <Link href="#features" className="hover:text-black transition-colors">Features</Link>
@@ -24,7 +29,11 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 text-center">
+      <section className="pt-20 pb-20 px-6 text-center">
+        {/* Hero Banner */}
+        <div className="max-w-5xl mx-auto mb-8">
+          <HeroBanner />
+        </div>
         <div className="max-w-3xl mx-auto space-y-6 animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-gray-900 hero-text">
             Fitness. <br />
