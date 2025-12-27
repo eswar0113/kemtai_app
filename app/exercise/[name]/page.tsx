@@ -66,7 +66,7 @@ export default function ExercisePage() {
           {/* Left Column: Camera */}
           <div className="lg:col-span-2 space-y-6">
             <CameraView
-              exercise={exercise as any}
+              exercise={exercise as "squat" | "pushup" | "lunge" | "jumpingjack" | "headrotation"}
               onResult={handleResult}
             />
             {feedback && (

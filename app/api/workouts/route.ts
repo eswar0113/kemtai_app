@@ -6,7 +6,15 @@ import { desc, eq } from "drizzle-orm";
 const DEMO_USER = "demo-user";
 const VALID_EXERCISES = ["squat", "pushup", "lunge", "jumping-jack", "head-rotation"];
 
-function validateWorkoutInput(data: any) {
+interface WorkoutInputData {
+  exercise?: string;
+  reps?: number;
+  accuracy?: number;
+  durationMs?: number;
+  [key: string]: unknown;
+}
+
+function validateWorkoutInput(data: WorkoutInputData) {
   const errors: string[] = [];
   
   if (data.exercise && !VALID_EXERCISES.includes(data.exercise)) {

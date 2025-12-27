@@ -1,5 +1,4 @@
 import { Keypoint } from "@tensorflow-models/pose-detection";
-import { getAngleAtJoint } from "../angleUtils";
 import { BaseExerciseLogic, ExerciseSample, PositionResult } from "./BaseExercise";
 
 const map: Record<string, number> = {

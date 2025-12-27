@@ -147,18 +147,19 @@ export default function CameraView({ exercise, onResult }: Props) {
         };
         raf = requestAnimationFrame(loop);
         setLoading(false);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Camera initialization error:", error);
         setLoading(false);
 
         // Provide user-friendly error messages
-        if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
+        const err = error as { name?: string; message?: string };
+        if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
           setError("Camera access was denied. Please allow camera access and refresh the page.");
-        } else if (error.name === "NotFoundError" || error.name === "DevicesNotFoundError") {
+        } else if (err.name === "NotFoundError" || err.name === "DevicesNotFoundError") {
           setError("No camera found. Please connect a camera and refresh the page.");
-        } else if (error.name === "NotReadableError" || error.name === "TrackStartError") {
+        } else if (err.name === "NotReadableError" || err.name === "TrackStartError") {
           setError("Camera is already in use by another application. Please close other apps using the camera.");
-        } else if (error.name === "OverconstrainedError" || error.name === "ConstraintNotSatisfiedError") {
+        } else if (err.name === "OverconstrainedError" || err.name === "ConstraintNotSatisfiedError") {
           setError("Camera doesn't support the required settings. Trying with default settings...");
           // Try again with default settings
           try {
@@ -170,11 +171,11 @@ export default function CameraView({ exercise, onResult }: Props) {
               setError(null);
               setLoading(false);
             }
-          } catch (retryError) {
+          } catch {
             setError("Failed to access camera. Please check your camera permissions and try again.");
           }
         } else {
-          setError(error.message || "Failed to access camera. Please check your browser settings.");
+          setError(err.message || "Failed to access camera. Please check your browser settings.");
         }
       }
     };

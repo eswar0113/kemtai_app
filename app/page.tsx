@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ExerciseSelector from "@/components/ExerciseSelector";
-import WorkoutStatsCard from "@/components/WorkoutStatsCard";
 
 export default function Home() {
   const exercises = [

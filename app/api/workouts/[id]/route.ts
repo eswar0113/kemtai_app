@@ -3,7 +3,17 @@ import { getDb } from "@/db/client";
 import { workouts } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-function validateWorkoutUpdate(data: any) {
+interface WorkoutUpdateData {
+  reps?: number;
+  accuracy?: number;
+  durationMs?: number;
+  userId?: string;
+  id?: string;
+  exercise?: string;
+  [key: string]: unknown;
+}
+
+function validateWorkoutUpdate(data: WorkoutUpdateData) {
   const errors: string[] = [];
   
   if (data.reps !== undefined && (typeof data.reps !== "number" || data.reps < 0 || data.reps > 10000)) {

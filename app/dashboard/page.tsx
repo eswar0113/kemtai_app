@@ -13,7 +13,6 @@ import {
   Legend
 } from "chart.js";
 import Link from "next/link";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
