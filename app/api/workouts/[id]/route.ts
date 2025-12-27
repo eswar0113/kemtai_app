@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/db/client";
+giimport { getDb } from "@/db/client";
 import { workouts } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
